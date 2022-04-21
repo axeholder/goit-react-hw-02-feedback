@@ -1,4 +1,5 @@
 import React from 'react';
+import { Statistics } from './Statistics/Statistics';
 
 export class App extends React.Component {
   state = {
@@ -46,18 +47,16 @@ export class App extends React.Component {
           })}
         </div>
 
-        <h2>Statistics</h2>
         {this.countTotalFeedback() !== 0 && (
-          <div>
-            <p>Good: {this.state.good}</p>
-            <p>Neutral: {this.state.neutral}</p>
-            <p>Bad: {this.state.bad}</p>
-            <p>Total: {this.countTotalFeedback()}</p>
-            <p>
-              Positive feedback:{' '}
-              {this.countPositiveFeedbackPercentage(this.countTotalFeedback())}%
-            </p>
-          </div>
+          <Statistics
+            good={this.state.good}
+            neutral={this.state.neutral}
+            bad={this.state.bad}
+            total={this.countTotalFeedback()}
+            positiveFeedbackPercentage={this.countPositiveFeedbackPercentage(
+              this.countTotalFeedback()
+            )}
+          ></Statistics>
         )}
 
         {this.countTotalFeedback() === 0 && <p>There is no feedback</p>}
