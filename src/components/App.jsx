@@ -1,5 +1,7 @@
 import React from 'react';
 import { Statistics } from './Statistics/Statistics';
+import { Section } from './Section/Section';
+import { FeedbackOptions } from './FeedbackOptions/FeedbackOptions';
 
 export class App extends React.Component {
   state = {
@@ -32,33 +34,26 @@ export class App extends React.Component {
   render() {
     return (
       <div>
-        <h2>Please leave feedback</h2>
-        <div>
-          {Object.keys(this.state).map(value => {
-            return (
-              <button
-                key={value}
-                type="button"
-                onClick={() => this.increaseReaction(value)}
-              >
-                {value}
-              </button>
-            );
-          })}
-        </div>
+        <Section title="Please leave feedback">
+          <FeedbackOptions
+            options={Object.keys(this.state)}
+            onLeaveFeedback={this.increaseReaction}
+          ></FeedbackOptions>
+        </Section>
 
-        {this.countTotalFeedback() !== 0 && (
-          <Statistics
-            good={this.state.good}
-            neutral={this.state.neutral}
-            bad={this.state.bad}
-            total={this.countTotalFeedback()}
-            positiveFeedbackPercentage={this.countPositiveFeedbackPercentage(
-              this.countTotalFeedback()
-            )}
-          ></Statistics>
-        )}
-
+        <Section title="Statistics">
+          {this.countTotalFeedback() !== 0 && (
+            <Statistics
+              good={this.state.good}
+              neutral={this.state.neutral}
+              bad={this.state.bad}
+              total={this.countTotalFeedback()}
+              positiveFeedbackPercentage={this.countPositiveFeedbackPercentage(
+                this.countTotalFeedback()
+              )}
+            ></Statistics>
+          )}
+        </Section>
         {this.countTotalFeedback() === 0 && <p>There is no feedback</p>}
       </div>
     );
