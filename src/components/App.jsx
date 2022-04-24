@@ -54,10 +54,10 @@ export class App extends React.Component {
               )}
             ></Statistics>
           )}
+          {this.countTotalFeedback() === 0 && (
+            <NotificationMessage message="There is no feedback" />
+          )}
         </Section>
-        {this.countTotalFeedback() === 0 && (
-          <NotificationMessage message="There is no feedback" />
-        )}
       </>
     );
   }
